@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="https://telia.se"
+        xmlns:tns="https://telia.se"
+        elementFormDefault="qualified">
+
+    <!-- Create Request -->
+    <element name="CreateRequest">
+        <complexType>
+            <sequence>
+                <element name="ServiceId" type="string"/>
+                <element name="ServiceType" type="string"/>
+                <element name="CustomerId" type="string"/>
+                <element name="SubscriptionId" type="string"/>
+                <element name="ServiceDetails" type="tns:ServiceDetailsType"/>
+                <element name="CustomerDetails" type="tns:CustomerDetailsType"/>
+            </sequence>
+        </complexType>
+    </element>
+
+    <!-- Service Details Type -->
+    <complexType name="ServiceDetailsType">
+        <sequence>
+            <element name="PlanType" type="string"/>
+            <element name="DataLimit" type="string" minOccurs="0"/>
+            <element name="RoamingEnabled" type="boolean"/>
+            <element name="AdditionalServices" type="tns:AdditionalServicesType" minOccurs="0"/>
+        </sequence>
+    </complexType>
+
+    <!-- Additional Services Type -->
+    <complexType name="AdditionalServicesType">
+        <sequence>
+            <element name="Service" type="string" maxOccurs="unbounded"/>
+        </sequence>
+    </complexType>
+
+    <!-- Customer Details Type -->
+    <complexType name="CustomerDetailsType">
+        <sequence>
+            <element name="Name" type="string"/>
+            <element name="Address" type="tns:AddressType" minOccurs="0"/>
+            <element name="ContactNumber" type="string"/>
+        </sequence>
+    </complexType>
+
+    <!-- Address Type -->
+    <complexType name="AddressType">
+        <sequence>
+            <element name="Street" type="string" minOccurs="0"/>
+            <element name="City" type="string" minOccurs="0"/>
+            <element name="PostalCode" type="string" minOccurs="0"/>
+            <element name="Country" type="string" minOccurs="0"/>
+        </sequence>
+    </complexType>
+
+    <!-- Response Types -->
+    <element name="CreateResponse">
+        <complexType>
+            <sequence>
+                <element name="Status" type="string"/>
+                <element name="Message" type="string" minOccurs="0"/>
+                <element name="ErrorCode" type="string" minOccurs="0"/>
+                <element name="ErrorMessage" type="string" minOccurs="0"/>
+            </sequence>
+        </complexType>
+    </element>
+
+    <!-- Get Request -->
+    <element name="GetRequest">
+        <complexType>
+            <sequence>
+                <element name="ServiceId" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+
+    <!-- Get Response -->
+    <element name="GetResponse">
+        <complexType>
+            <sequence>
+                <element name="Status" type="string"/>
+                <element name="ServiceData" type="tns:ServiceRecordType" minOccurs="0"/>
+                <element name="ErrorCode" type="string" minOccurs="0"/>
+                <element name="ErrorMessage" type="string" minOccurs="0"/>
+            </sequence>
+        </complexType>
+    </element>
+
+    <!-- Service Record Type -->
+    <complexType name="ServiceRecordType">
+        <sequence>
+            <element name="ServiceId" type="string"/>
+            <element name="ServiceType" type="string"/>
+            <element name="CustomerId" type="string"/>
+            <element name="SubscriptionId" type="string"/>
+            <element name="ServiceDetails" type="tns:ServiceDetailsType"/>
+            <element name="CustomerDetails" type="tns:CustomerDetailsType"/>
+            <element name="VIPCustomer" type="boolean" minOccurs="0"/>
+            <element name="SpecialOffer" type="string" minOccurs="0"/>
+        </sequence>
+    </complexType>
+
+</schema>
